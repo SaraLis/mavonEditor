@@ -447,7 +447,7 @@ export default {
                 if (isinsert === true) {
                     // 去除特殊字符
                     $file._name = $file.name.replace(/[\[\]\(\)\+\{\}&\|\\\*^%$#@\-]/g, '');
-                    
+
                     $vm.insertText($vm.getTextareaDom(),
                         {
                             prefix: '![' + $file._name + '](' + pos + ')',
@@ -565,7 +565,7 @@ export default {
         // 工具栏插入内容
         insertText(obj, {prefix, subfix, str, type}) {
             // if (this.s_preview_switch) {
-          
+
             insertTextAtCaret(obj, {prefix, subfix, str, type}, this);
         },
         insertTab() {
@@ -662,6 +662,15 @@ export default {
             if (val !== this.d_value) {
                 this.d_value = val
             }
+            let httpArray=this.d_value.split("\n");
+            for(var i=0;i<httpArray.length;i++){
+                console.log(httpArray[i])
+                if(httpArray[i].startsWith("http://")){
+                    let tmpArray=httpArray[i].split("/");
+                    this.toolbar_left_addlink("linkImage",tmpArray[tmpArray.length-2],httpArray[i])
+                }
+            }
+
         },
         subfield: function (val, oldVal) {
             this.s_subfield = val
